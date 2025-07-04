@@ -5,6 +5,7 @@
 #include <tbb/tbb.h>
 
 BeaconColorCalculator::BeaconColorCalculator() {
+    std::cout << "正在计算信标所有可能的颜色" << std::endl;
     tbb::parallel_for(tbb::blocked_range<std::size_t>(0, std::size(all_mc_glasses)),
                       [this](const tbb::blocked_range<std::size_t> &range) {
                           glasses_type glasses;

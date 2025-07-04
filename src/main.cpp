@@ -9,12 +9,14 @@
 #include <ranges>
 #include <vector>
 
+#include <cxxopts.hpp>
+
 #include "BeaconColorCalculator.h"
 
 
 using position_data_type = std::list<std::array<int, 2>>;
 
-std::string package_name = "my_test";
+std::string package_namespace;
 
 double transform_to_circle(double angle) {
     while (not(-std::numbers::pi <= angle && angle <= std::numbers::pi)) {
@@ -111,36 +113,45 @@ void insert_clear_code(std::ofstream &file, const position_data_type &datas) {
     }
 }
 
-auto generate_clear_function_file(const std::string &clear_function_name, const position_data_type &datas) {
+auto generate_clear_function_file(const std::string &clear_function_name, const position_data_type &datas,
+                                  const std::filesystem::path &output_dir) {
     std::string clear_function_file_name = clear_function_name + ".mcfunction";
-    std::string core_function_name = clear_function_name + "_core";
-    std::string core_function_file_name = core_function_name + ".mcfunction";
-    std::ofstream clear_function_file(clear_function_file_name);
+    auto clear_function_file_path = output_dir / clear_function_file_name;
+
+    std::string clear_core_function_name = clear_function_name + "_core";
+    std::string clear_core_function_file_name = clear_core_function_name + ".mcfunction";
+    auto clear_core_function_file_path = output_dir / clear_core_function_file_name;
+
+    std::ofstream clear_function_file(clear_function_file_path);
     clear_function_file << "# 本文件由程序自动生成\n" << std::endl;
     std::println(
             clear_function_file,
-            "$execute positioned $(origin_x) $(origin_y) $(origin_z) run function {}:{}", package_name,
-            core_function_name);
+            "$execute positioned $(origin_x) $(origin_y) $(origin_z) run function {}:{}", package_namespace,
+            clear_core_function_name);
 
-    std::ofstream core_function_file(core_function_file_name);
+    std::ofstream core_function_file(clear_core_function_file_path);
     core_function_file << "# 本文件由程序自动生成\n" << std::endl;
     insert_clear_code(core_function_file, datas);
 }
 
-auto generate_function_file(const std::string &generate_function_name, const position_data_type &datas) {
+auto generate_function_file(const std::string &generate_function_name, const position_data_type &datas,
+                            const std::filesystem::path &output_dir) {
     std::string generate_function_file_name = generate_function_name + ".mcfunction";
-    std::string core_function_name = generate_function_name + "_core";
-    std::string core_function_file_name = core_function_name + ".mcfunction";
+    auto generate_function_file_path = output_dir / generate_function_file_name;
+
+    std::string generate_core_function_name = generate_function_name + "_core";
+    std::string generate_core_function_file_name = generate_core_function_name + ".mcfunction";
+    auto generate_core_function_file_path = output_dir / generate_core_function_file_name;
 
 
-    std::ofstream generate_function_file(generate_function_file_name);
+    std::ofstream generate_function_file(generate_function_file_path);
     generate_function_file << "# 本文件由程序自动生成\n" << std::endl;
     std::println(
             generate_function_file,
-            "$execute positioned $(origin_x) $(origin_y) $(origin_z) run function {}:{}", package_name,
-            core_function_name);
+            "$execute positioned $(origin_x) $(origin_y) $(origin_z) run function {}:{}", package_namespace,
+            generate_core_function_name);
 
-    std::ofstream core_function_file(core_function_file_name);
+    std::ofstream core_function_file(generate_core_function_file_path);
     core_function_file << "# 本文件由程序自动生成\n" << std::endl;
     //落脚点
     std::println(
@@ -186,18 +197,62 @@ auto generate_function_file(const std::string &generate_function_name, const pos
 }
 
 void generate_files(const std::string &generate_function_name, const std::string &clear_function_name,
-                    const position_data_type &target_positions) {
-    generate_function_file(generate_function_name, target_positions);
-    generate_clear_function_file(clear_function_name, target_positions);
+                    const std::filesystem::path &output_dir, const position_data_type &target_positions) {
+    generate_function_file(generate_function_name, target_positions, output_dir);
+    generate_clear_function_file(clear_function_name, target_positions, output_dir);
 }
 
 
-int main() {
-    int point_num = 300;
-    double minimum_distance = 100;
-    double maximum_distance = 150;
+int main(int argc, char **argv) {
+    cxxopts::Options options("Minecraft Beacon Circle Generator", "A generator for minecraft beacon colorful circle");
+    options.add_options()
+            ("n,point_num", "The number of beacons", cxxopts::value<unsigned int>()->default_value("300"))
+            ("M,maximum_distance", "The maximum distance of generated beacons to origin point",
+             cxxopts::value<unsigned int>()->default_value("100"))
+            ("m,minimum_distance", "The minimum distance of generated beacons to origin point",
+             cxxopts::value<unsigned int>()->default_value("150"))
+            ("d,output_directory", "The output directory of generated files",
+             cxxopts::value<std::string>()->default_value("."))
+            ("package_namespace", "The namespace of target datapack",
+             cxxopts::value<std::string>()->default_value("my_test"))
+            ("h,help", "Show help", cxxopts::value<bool>());
+
+    cxxopts::ParseResult result;
+    try {
+        result = options.parse(argc, argv);
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        std::cout << options.help() << std::endl;
+        return -1;
+    }
+
+    if (result.count("help")) {
+        std::cout << options.help() << std::endl;
+        return 0;
+    }
+
+    std::error_code ec;
+    std::filesystem::path output_dir = result["output_directory"].as<std::string>();
+    auto exist_ret = std::filesystem::exists(output_dir, ec);
+    if (ec) {
+        std::cerr << "检查是否存在输出目录时出错：" << ec.message() << std::endl;
+        return -1;
+    }
+    if (!exist_ret) {
+        std::println(std::cout, "{}不存在，尝试创建", output_dir.string());
+        std::filesystem::create_directory(output_dir, ec);
+        if (ec) {
+            std::cerr << "创建目录失败：" << ec.message() << std::endl;
+            return -1;
+        }
+    }
+    int point_num = result["point_num"].as<unsigned int>();
+    double minimum_distance = result["minimum_distance"].as<unsigned int>();
+    double maximum_distance = result["maximum_distance"].as<unsigned int>();
+    package_namespace = result["package_namespace"].as<std::string>();
+
 
     auto target_positions = calculate_positions(point_num, minimum_distance, maximum_distance);
-    generate_files("generate", "clear", target_positions);
+    generate_files("generate", "clear", output_dir, target_positions);
     return 0;
 }
