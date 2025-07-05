@@ -19,8 +19,8 @@ using position_data_type = std::list<std::array<int, 2>>;
 std::string package_namespace;
 
 double transform_to_circle(double angle) {
-    while (not(-std::numbers::pi <= angle && angle <= std::numbers::pi)) {
-        if (angle > std::numbers::pi) {
+    while (not(-std::numbers::pi <= angle && angle < std::numbers::pi)) {
+        if (angle >= std::numbers::pi) {
             angle -= 2 * std::numbers::pi;
         } else if (angle < -std::numbers::pi) {
             angle += 2 * std::numbers::pi;
