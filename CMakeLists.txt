@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD 23)
 find_package(TBB CONFIG REQUIRED)
 find_package(cxxopts CONFIG REQUIRED)
 
+if(MSVC)
+    add_compile_options("/source-charset:utf-8")
+endif()
+
 include_directories(include)
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)

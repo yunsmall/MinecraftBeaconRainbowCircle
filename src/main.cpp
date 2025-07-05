@@ -19,8 +19,8 @@ using position_data_type = std::list<std::array<int, 2>>;
 std::string package_namespace;
 
 double transform_to_circle(double angle) {
-    while (not(-std::numbers::pi <= angle && angle <= std::numbers::pi)) {
-        if (angle > std::numbers::pi) {
+    while (not(-std::numbers::pi <= angle && angle < std::numbers::pi)) {
+        if (angle >= std::numbers::pi) {
             angle -= 2 * std::numbers::pi;
         } else if (angle < -std::numbers::pi) {
             angle += 2 * std::numbers::pi;
@@ -208,9 +208,9 @@ int main(int argc, char **argv) {
     options.add_options()
             ("n,point_num", "The number of beacons", cxxopts::value<unsigned int>()->default_value("300"))
             ("M,maximum_distance", "The maximum distance of generated beacons to origin point",
-             cxxopts::value<unsigned int>()->default_value("100"))
-            ("m,minimum_distance", "The minimum distance of generated beacons to origin point",
              cxxopts::value<unsigned int>()->default_value("150"))
+            ("m,minimum_distance", "The minimum distance of generated beacons to origin point",
+             cxxopts::value<unsigned int>()->default_value("100"))
             ("d,output_directory", "The output directory of generated files",
              cxxopts::value<std::string>()->default_value("."))
             ("package_namespace", "The namespace of target datapack",
