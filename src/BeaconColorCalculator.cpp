@@ -4,8 +4,10 @@
 
 #include <tbb/tbb.h>
 
+#include "i18n.h"
+
 BeaconColorCalculator::BeaconColorCalculator() {
-    std::cout << "正在计算信标所有可能的颜色" << std::endl;
+    std::cout << _("正在计算信标所有可能的颜色") << std::endl;
     tbb::parallel_for(tbb::blocked_range<std::size_t>(0, std::size(all_mc_glasses)),
                       [this](const tbb::blocked_range<std::size_t> &range) {
                           glasses_type glasses;
@@ -98,7 +100,7 @@ BeaconColorCalculator::glasses_type BeaconColorCalculator::calculate_colors(RGBC
     return minimum_colors.first;
 
     // for (auto glass_1: all_mcglasses) {
-    //     // std::println(std::cout, "当前搜索的第一个玻璃为{}", glass_to_mc_name(glass_1));
+    //     // std::println(std::cout, _("当前搜索的第一个玻璃为{}"), glass_to_mc_name(glass_1));
     //     colors[0] = glass_1;
     //     for (auto glass_2: all_mcglasses) {
     //         colors[1] = glass_2;

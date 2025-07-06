@@ -8,9 +8,11 @@
 #include <numbers>
 #include <ranges>
 #include <vector>
+#include <locale>
 
 #include <cxxopts.hpp>
 
+#include "i18n.h"
 #include "BeaconColorCalculator.h"
 
 
@@ -168,7 +170,8 @@ auto generate_function_file(const std::string &generate_function_name, const pos
     hsl_color.luminance = 0.5;
     hsl_color.saturation = 1;
     for (const auto &[i,data]: std::views::enumerate(datas)) {
-        std::println(std::cout, "正在生成创建第{}个信标的代码", i);
+        std::vprint_unicode(std::cout, _("正在生成创建第{}个信标的代码"), std::make_format_args(i));
+        std::cout << std::endl;
         hsl_color.hue = (float) i / datas.size() * 360;
         // std::println(std::cout, "当前hue值为{}",hsl_color.hue);
         auto rgb_color = HSLtoRGB(hsl_color);
@@ -204,18 +207,20 @@ void generate_files(const std::string &generate_function_name, const std::string
 
 
 int main(int argc, char **argv) {
-    cxxopts::Options options("Minecraft Beacon Circle Generator", "A generator for minecraft beacon colorful circle");
+    set_system_i18n();
+
+    cxxopts::Options options(_("我的世界信标圆生成器"), _("一个用来生成创建我的世界彩虹信标圆的mcfunction的生成器"));
     options.add_options()
-            ("n,point_num", "The number of beacons", cxxopts::value<unsigned int>()->default_value("300"))
-            ("M,maximum_distance", "The maximum distance of generated beacons to origin point",
+            ("n,point_num", _("信标的个数"), cxxopts::value<unsigned int>()->default_value("300"))
+            ("M,maximum_distance", _("距离原点最大距离"),
              cxxopts::value<unsigned int>()->default_value("150"))
-            ("m,minimum_distance", "The minimum distance of generated beacons to origin point",
+            ("m,minimum_distance", _("距离原点最小距离"),
              cxxopts::value<unsigned int>()->default_value("100"))
-            ("d,output_directory", "The output directory of generated files",
+            ("d,output_directory", _("生成的文件输出目录"),
              cxxopts::value<std::string>()->default_value("."))
-            ("package_namespace", "The namespace of target datapack",
+            ("package_namespace", _("数据包的命名空间"),
              cxxopts::value<std::string>()->default_value("my_test"))
-            ("h,help", "Show help", cxxopts::value<bool>());
+            ("h,help", _("显示帮助"), cxxopts::value<bool>());
 
     cxxopts::ParseResult result;
     try {
@@ -235,14 +240,15 @@ int main(int argc, char **argv) {
     std::filesystem::path output_dir = result["output_directory"].as<std::string>();
     auto exist_ret = std::filesystem::exists(output_dir, ec);
     if (ec) {
-        std::cerr << "检查是否存在输出目录时出错：" << ec.message() << std::endl;
+        std::cerr << _("检查是否存在输出目录时出错：") << ec.message() << std::endl;
         return -1;
     }
     if (!exist_ret) {
-        std::println(std::cout, "{}不存在，尝试创建", output_dir.string());
+        auto output_dir_str = output_dir.string();
+        std::vprint_unicode(std::cout, _("{}不存在，尝试创建"), std::make_format_args(output_dir_str));
         std::filesystem::create_directory(output_dir, ec);
         if (ec) {
-            std::cerr << "创建目录失败：" << ec.message() << std::endl;
+            std::cerr << _("创建目录失败：") << ec.message() << std::endl;
             return -1;
         }
     }

@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 03:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\BeaconColorCalculator.cpp:10
+msgid "正在计算信标所有可能的颜色"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:173
+#, c++-format
+msgid "正在生成创建第{}个信标的代码"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:212
+msgid "我的世界信标圆生成器"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:212
+msgid "一个用来生成创建我的世界彩虹信标圆的mcfunction的生成器"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:214
+msgid "信标的个数"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:215
+msgid "距离原点最大距离"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:217
+msgid "距离原点最小距离"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:219
+msgid "生成的文件输出目录"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:221
+msgid "数据包的命名空间"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:223
+msgid "显示帮助"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:243
+msgid "检查是否存在输出目录时出错："
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:248
+#, c++-format
+msgid "{}不存在，尝试创建"
+msgstr ""
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:251
+msgid "创建目录失败："
+msgstr ""

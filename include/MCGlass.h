@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <ranges>
+#include <stdexcept>
 
 #include "Color.h"
 
@@ -79,7 +80,7 @@ inline constexpr MCGlass all_mc_glasses[] = {
         case MCGlass::Pink:
             return {243, 139, 170};
         default:
-            throw std::exception("未知颜色");
+            throw std::logic_error("未知颜色");
     }
 }
 
@@ -118,7 +119,7 @@ inline constexpr MCGlass all_mc_glasses[] = {
         case MCGlass::Pink:
             return "minecraft:pink_stained_glass";
         default:
-            throw std::exception("未知颜色");
+            throw std::logic_error("未知颜色");
     }
 }
 

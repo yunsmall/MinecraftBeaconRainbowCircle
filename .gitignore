@@ -1,4 +1,6 @@
 cmake-*
-[Bb]uild
+[Bb]uild*
 .vscode
 .idea
+install*
+*.mcfunction
