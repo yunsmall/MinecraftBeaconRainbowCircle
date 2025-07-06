@@ -1,0 +1,67 @@
+# Translation of
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 02:45+0800\n"
+"PO-Revision-Date: 2025-07-06 15:27+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: plurals=2; plural=(n > 1)\n"
+"X-Generator: Eazy Po 1.0.0.0\n"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\BeaconColorCalculator.cpp:10
+msgid "正在计算信标所有可能的颜色"
+msgstr "正在计算信标所有可能的颜色"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:211
+msgid "我的世界信标圆生成器"
+msgstr "我的世界信标圆生成器"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:211
+msgid "一个用来生成创建我的世界彩虹信标圆的mcfunction的生成器"
+msgstr "一个用来生成创建我的世界彩虹信标圆的mcfunction的生成器"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:213
+msgid "信标的个数"
+msgstr "信标的个数"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:214
+msgid "距离原点最大距离"
+msgstr "距离原点最大距离"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:216
+msgid "距离原点最小距离"
+msgstr "距离原点最小距离"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:218
+msgid "生成的文件输出目录"
+msgstr "生成的文件输出目录"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:220
+msgid "数据包的命名空间"
+msgstr "数据包的命名空间"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:222
+msgid "显示帮助"
+msgstr "显示帮助"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:242
+msgid "检查是否存在输出目录时出错："
+msgstr "检查是否存在输出目录时出错："
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:247
+#, c++-format
+msgid "{}不存在，尝试创建"
+msgstr "{}不存在，尝试创建"
+
+#: F:\YeSmallWorkstation2\code\C++\minecraft_beacon_circle\src\main.cpp:250
+msgid "创建目录失败："
+msgstr "创建目录失败："
